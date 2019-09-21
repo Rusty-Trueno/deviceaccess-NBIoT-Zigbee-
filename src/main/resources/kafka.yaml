@@ -1,0 +1,46 @@
+producer:
+    # \u751f\u4ea7\u8005\u914d\u7f6e\u6587\u4ef6\u5b9e\u4f53\u7c7b\u76ee\u524d\u6dfb\u52a0\u7684\u6240\u6709\u53c2\u6570demo
+    producerConfigDemo:
+        !!cn.edu.bupt.utils.ProducerProperties
+#        bootstrapServers: 39.104.186.210:9092
+        bootstrapServers: kafka-service:9092
+        topic: deviceData
+        acks: 1
+        retries: 0
+        batchSize: 16384
+        lingerMs: 1
+        bufferMemory: 33554432
+        keySerializer: org.apache.kafka.common.serialization.StringSerializer
+        valueSerializer: org.apache.kafka.common.serialization.StringSerializer
+
+    # \u751f\u4ea7\u8005\u6d4b\u8bd5
+    producerTest:
+        !!cn.edu.bupt.utils.ProducerProperties
+#        bootstrapServers: 39.104.186.210:9092
+#        bootstrapServers: 172.30.26.6:9092
+        bootstrapServers: kafka-service:9092
+        topic: kfktest
+
+consumer:
+    # \u6d88\u8d39\u8005\u914d\u7f6e\u6587\u4ef6\u5b9e\u4f53\u7c7b\u76ee\u524d\u6dfb\u52a0\u7684\u6240\u6709\u53c2\u6570demo
+    consumerConfigDemo:
+       # !!com.bupt.kafka.enity.ConsumerProperties
+#        bootstrapServers: 39.104.186.210:9092
+#        bootstrapServers: 172.30.26.6:9092
+        bootstrapServers: kafka-service:9092
+        groupId: test
+        topic: test
+        enableAutoCommit: true
+        autoCommitIntercalMs: 1000
+        sessionTimeoutMs: 30000
+        keyDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+        valueDeserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    # \u6d88\u8d39\u8005\u6d4b\u8bd5
+    consumerTest:
+        #!!com.bupt.kafka.enity.ConsumerProperties
+#        bootstrapServers: 10.112.233.200:9092
+#        bootstrapServers: 172.30.26.6:9092
+        bootstrapServers: kafka-service:9092
+        groupId: consumerTest
+        topic: kfktest

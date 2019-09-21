@@ -1,0 +1,79 @@
+#MQTT config
+mqtt:
+  bind_address: 127.0.0.1
+  bind_port: 1883
+  timeout: 10000
+  netty:
+    leak_detector_level: DISABLED
+    boss_group_thread_count: 1
+    worker_group_thread_count: 12
+
+server:
+  port: 8100
+
+cassandra:
+  # cluster name
+  cluster_name: "${CASSANDRA_CLUSTER_NAME:Thingsboard Cluster}"
+  # keyspace name
+  keyspace_name: "${CASSANDRA_KEYSPACE_NAME:BUPT_IOT}"
+  # URL
+  contactpoints: "${CASSANDRA_CONTACTPOINTS:118.190.202.148}"
+  port: "${CASSANDRA_PORT:9042}"
+  # Enable/disable secure connection
+  ssl: "${CASSANDRA_USE_SSL:false}"
+  # Enable/disable JMX
+  jmx: "${CASSANDRA_USE_JMX:true}"
+  # Enable/disable metrics collection.
+  metrics: "${CASSANDRA_DISABLE_METRICS:true}"
+  # NONE SNAPPY LZ4
+  compression: "${CASSANDRA_COMPRESSION:none}"
+  # Specify cassandra claster initialization timeout (if no hosts available during startup)
+  init_timeout_ms: "${CASSANDRA_CLUSTER_INIT_TIMEOUT_MS:300000}"
+  # Specify cassandra claster initialization retry interval (if no hosts available during startup)
+  init_retry_interval_ms: "${CASSANDRA_CLUSTER_INIT_RETRY_INTERVAL_MS:3000}"
+
+  # Credential parameters #
+  credentials: "${CASSANDRA_USE_CREDENTIALS:false}"
+  # Specify your username
+  username: "${CASSANDRA_USERNAME:}"
+  # Specify your password
+  password: "${CASSANDRA_PASSWORD:}"
+
+  # Cassandra cluster connection socket parameters #
+  socket:
+    connect_timeout: "${CASSANDRA_SOCKET_TIMEOUT:5000}"
+    read_timeout: "${CASSANDRA_SOCKET_READ_TIMEOUT:20000}"
+    keep_alive: "${CASSANDRA_SOCKET_KEEP_ALIVE:true}"
+    reuse_address: "${CASSANDRA_SOCKET_REUSE_ADDRESS:true}"
+    so_linger: "${CASSANDRA_SOCKET_SO_LINGER:}"
+    tcp_no_delay: "${CASSANDRA_SOCKET_TCP_NO_DELAY:false}"
+    receive_buffer_size: "${CASSANDRA_SOCKET_RECEIVE_BUFFER_SIZE:}"
+    send_buffer_size: "${CASSANDRA_SOCKET_SEND_BUFFER_SIZE:}"
+
+  # Cassandra cluster connection query parameters  #
+  query:
+    read_consistency_level: "${CASSANDRA_READ_CONSISTENCY_LEVEL:ONE}"
+    write_consistency_level: "${CASSANDRA_WRITE_CONSISTENCY_LEVEL:ONE}"
+    default_fetch_size: "${CASSANDRA_DEFAULT_FETCH_SIZE:2000}"
+    # Specify partitioning size for timestamp key-value storage. Example MINUTES, HOURS, DAYS, MONTHS
+    ts_key_value_partitioning: "${TS_KV_PARTITIONING:MONTHS}"
+
+spring:
+  datasource:
+    url: jdbc:mysql://118.190.202.148:3306/BUPT_IOT
+    username: root
+    password: Gantch815
+
+#account:
+#  host: account
+#  port: 8400
+#  check_url: http://account:8400/api/v1/account/check_token
+#  login_url: http://account:8400/api/v1/account/login
+#  client_id: client_2
+#  client_secret: 123456
+#  internal_client_id: client_1
+#  internal_client_secret: 123456
+
+security:
+  basic:
+    enabled: false
