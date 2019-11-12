@@ -2,6 +2,7 @@ package cn.edu.bupt.controller;
 
 import cn.edu.bupt.actor.service.FromServerMsgProcessor;
 import cn.edu.bupt.dao.device.DeviceMessageDao;
+import cn.edu.bupt.dao.device.NbiotDeviceDao;
 import cn.edu.bupt.dao.exception.IOTException;
 import cn.edu.bupt.dao.page.TextPageData;
 import cn.edu.bupt.dao.page.TextPageLink;
@@ -15,8 +16,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 
@@ -35,6 +38,9 @@ public class DeviceController extends BaseController {
 
     @Autowired
     DeviceMessageDao deviceMessageDao;
+
+    @Autowired
+    NbiotDeviceDao nbiotDeviceDao;
 
     public static final String DEVICE_ID = "deviceId";
 
@@ -530,4 +536,15 @@ public class DeviceController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/updateNbiotDevice/{parentDeviceId}/{mac}",method = RequestMethod.GET)
+    @ResponseBody
+    public String updateNbiotDevice(@PathVariable String parentDeviceId, @PathVariable String mac){
+        System.out.println(parentDeviceId + mac);
+        Boolean result = nbiotDeviceDao.updateNbiotDevice(parentDeviceId,mac);
+        if(result){
+            return "success";
+        }else{
+            return "failed";
+        }
+    }
 }
