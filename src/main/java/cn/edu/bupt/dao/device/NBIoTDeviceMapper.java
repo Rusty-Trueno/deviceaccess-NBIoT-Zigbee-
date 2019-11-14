@@ -2,6 +2,7 @@ package cn.edu.bupt.dao.device;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -11,4 +12,7 @@ import org.apache.ibatis.annotations.Update;
 public interface NBIoTDeviceMapper {
     @Update("UPDATE nbiotdevice SET parentDeviceId = #{parentDeviceId} WHERE mac = #{mac}")
     Boolean updateNbiotDevice(@Param("parentDeviceId") String parentDeviceId,@Param("mac") String mac);
+
+    @Select("SELECT deviceId FROM nbiotdevice WHERE mac = #{mac}")
+    String selectNbDeviceIdByMac(String mac);
 }

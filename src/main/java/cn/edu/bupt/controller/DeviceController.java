@@ -541,8 +541,12 @@ public class DeviceController extends BaseController {
     public String updateNbiotDevice(@PathVariable String parentDeviceId, @PathVariable String mac){
         System.out.println(parentDeviceId + mac);
         Boolean result = nbiotDeviceDao.updateNbiotDevice(parentDeviceId,mac);
-        if(result){
-            return "success";
+        String deviceId = nbiotDeviceDao.selectNbDeviceIdByMac(mac);
+        UUID nbDeviceId = toUUID(deviceId);
+        Boolean result2 = deviceService.updateNbParentDeviceId(nbDeviceId,parentDeviceId);
+        System.out.println(nbDeviceId);
+        if(result && result2){
+            return "update success, deviceId is " + deviceId;
         }else{
             return "failed";
         }

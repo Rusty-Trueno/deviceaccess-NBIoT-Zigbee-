@@ -98,6 +98,14 @@ public class DeviceServiceImpl implements DeviceService, InitializingBean{
     }
 
     @Override
+    public Boolean updateNbParentDeviceId(UUID deviceId,String parentDeviceId){
+        validateId(deviceId, INCORRECT_DEVICE_ID + deviceId);
+        Device nbDevice = deviceDao.findById(deviceId);
+        System.out.println(nbDevice.toString());
+        return deviceDao.updateById(deviceId,parentDeviceId,nbDevice);
+    }
+
+    @Override
     public Device updateDeviceSiteId(UUID deviceId, Integer siteId){
         validateId(deviceId, INCORRECT_DEVICE_ID + deviceId);
         validateId(siteId, INCORRECT_SITE_ID + siteId);

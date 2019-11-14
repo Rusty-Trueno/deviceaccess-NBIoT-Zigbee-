@@ -157,6 +157,8 @@ public abstract class CassandraAbstractModelDao<E extends BaseEntity> extends Ca
         return getSession().execute(delete).wasApplied();
     }
 
+
+
     public List<E> find() {
         List<E> entities = findListByStatement(QueryBuilder.select().all().from(getColumnFamilyName()).setConsistencyLevel(cluster.getDefaultReadConsistencyLevel()));
         return entities;

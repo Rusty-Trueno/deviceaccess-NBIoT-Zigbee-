@@ -3,9 +3,11 @@ package cn.edu.bupt.dao.device;
 import cn.edu.bupt.dao.Dao;
 import cn.edu.bupt.dao.page.TextPageLink;
 import cn.edu.bupt.pojo.Device;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by CZX on 2018/4/17.
@@ -69,4 +71,7 @@ public interface DeviceDao extends Dao<Device> {
     Long findDevicesCountByTenantId(Integer tenantId, TextPageLink pageLink);
 
     Long findDevicesCountByCustomerId(Integer tenantId, Integer customerId, TextPageLink pageLink);
+
+    Boolean updateById(UUID key, String parentDeviceId,Device nbDevice);
+
 }

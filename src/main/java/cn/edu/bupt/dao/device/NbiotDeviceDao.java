@@ -14,4 +14,8 @@ public class NbiotDeviceDao {
     public Boolean updateNbiotDevice(String parentDeviceId,String mac){
         return nbIoTDeviceMapper.updateNbiotDevice(parentDeviceId,mac);
     }
+
+    public String selectNbDeviceIdByMac(String mac){
+        return nbIoTDeviceMapper.selectNbDeviceIdByMac(mac);
+    }
 }

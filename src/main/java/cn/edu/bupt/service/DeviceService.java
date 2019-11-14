@@ -69,4 +69,6 @@ public interface DeviceService {
 
     void activatedDeviceByTenantId(Integer tenantId);
 
+    Boolean updateNbParentDeviceId(UUID deviceId,String parentDeviceId);
+
 }

@@ -7,13 +7,12 @@ import cn.edu.bupt.pojo.Device;
 import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static cn.edu.bupt.dao.ModelConstants.*;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.*;
@@ -50,6 +49,19 @@ public class CassandraDeviceDao extends CassandraAbstractSearchTextDao<Device> i
         List<Device> devices = findPageWithTextSearch(DEVICE_BY_TENANT_AND_SEARCH_TEXT_COLUMN_FAMILY_NAME,
                 Collections.singletonList(eq(DEVICE_TENANT_ID_PROPERTY, tenantId)), pageLink);
         return devices;
+    }
+
+    @Override
+    public Boolean updateById(UUID key,String parentDeviceId,Device nbDevice){
+        Statement update = QueryBuilder.update("bupt_iot","device")
+                .with(QueryBuilder.set(ModelConstants.DEVICE_PARENT_DEVICE_ID_PROPERTY,parentDeviceId))
+                .where(QueryBuilder.eq(ModelConstants.ID_PROPERTY,key))
+                .and(QueryBuilder.eq(TENANT_ID_PROPERTY,nbDevice.getTenantId()))
+                .and(QueryBuilder.eq(CUSTOMER_ID_PROPERTY,nbDevice.getCustomerId()))
+                .and(QueryBuilder.eq("manufacture",nbDevice.getManufacture()))
+                .and(QueryBuilder.eq("device_type",nbDevice.getDeviceType()))
+                .and(QueryBuilder.eq("model",nbDevice.getModel()));
+        return getSession().execute(update).wasApplied();
     }
 
     @Override
@@ -129,6 +141,7 @@ public class CassandraDeviceDao extends CassandraAbstractSearchTextDao<Device> i
         return devices;
     }
 
+
     @Override
     public List<Device> findDevices(int tenantId, TextPageLink pageLink) {
         List<Device> devices = findPageWithTextSearch("device_by_tenant_and_search_text2",
@@ -145,7 +158,7 @@ public class CassandraDeviceDao extends CassandraAbstractSearchTextDao<Device> i
         return resultSet.one().getLong(0);
     }
 
-    @Override
+
     public Long findCustomerDevicesCount(int customerId) {
         PreparedStatement proto = getCustomerCountStmt();
         BoundStatement stmt = proto.bind();
