@@ -49,7 +49,7 @@
         <guava.version>18.0</guava.version> <!--Guava是一个Google的基于java1.6的类库集合的扩展项目-->
         <paho.client.version>1.1.0</paho.client.version>  <!--M2M协议(MQTT)的开源实现-->
         <bouncycastle.version>1.56</bouncycastle.version> <!--Bouncy Castle是一种用于Java平台的开放源码的轻量级密码术包-->
-        <gson.version>2.6.2</gson.version>  <!--Json处理框架-->
+        <gson.version>2.8.9</gson.version>  <!--Json处理框架-->
         <okhttp.version>3.9.0</okhttp.version>
         <lombok.version>1.16.18</lombok.version>
         <cassandra.version>3.0.0</cassandra.version>
